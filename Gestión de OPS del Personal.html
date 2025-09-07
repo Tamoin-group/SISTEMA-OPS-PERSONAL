@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)file:///C:/Users/abiga/Downloads/deepseek_html_20250907_789991.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Faltas del Personal</title>
+    <script src="./Gestión de OPS del Personal_files/chart.js.descargar"></script>
+    <script src="./Gestión de OPS del Personal_files/xlsx.full.min.js.descargar"></script>
+    <script src="./Gestión de OPS del Personal_files/jspdf.umd.min.js.descargar"></script>
+    <script src="./Gestión de OPS del Personal_files/jspdf.plugin.autotable.min.js.descargar"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .management-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stats-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        select, input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: #4a6491;
+            box-shadow: 0 0 0 2px rgba(74, 100, 145, 0.2);
+        }
+        
+        button {
+            background: #4a6491;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #3a547e;
+        }
+        
+        .btn-delete {
+            background: #e74c3c;
+            padding: 8px 12px;
+            font-size: 14px;
+            width: auto;
+        }
+        
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+        
+        .btn-edit {
+            background: #f39c12;
+            padding: 8px 12px;
+            font-size: 14px;
+            width: auto;
+            margin-right: 5px;
+        }
+        
+        .btn-edit:hover {
+            background: #e67e22;
+        }
+        
+        .btn-export {
+            background: #27ae60;
+            padding: 8px 12px;
+            font-size: 14px;
+            width: auto;
+            margin-right: 5px;
+        }
+        
+        .btn-export:hover {
+            background: #219653;
+        }
+        
+        .btn-filter {
+            background: #9b59b6;
+            padding: 8px 12px;
+            font-size: 14px;
+            width: auto;
+            margin-right: 5px;
+        }
+        
+        .btn-filter:hover {
+            background: #8e44ad;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .actions {
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        .summary {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .summary-card {
+            background: linear-gradient(135deg, #4a6491 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .summary-card h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .summary-card p {
+            font-size: 0.9rem;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+            font-style: italic;
+        }
+        
+        .item-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .chart-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .filter-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        .filter-section select {
+            width: auto;
+            min-width: 150px;
+        }
+        
+        .criticidad-leve {
+            background-color: rgba(46, 204, 113, 0.2);
+        }
+        
+        .criticidad-moderado {
+            background-color: rgba(241, 196, 15, 0.2);
+        }
+        
+        .criticidad-grave {
+            background-color: rgba(231, 76, 60, 0.2);
+        }
+        
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .badge-leve {
+            background-color: #2ecc71;
+        }
+        
+        .badge-moderado {
+            background-color: #f1c40f;
+        }
+        
+        .badge-grave {
+            background-color: #e74c3c;
+        }
+        
+        @media (max-width: 1100px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .management-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-section select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema de Gestión de Faltas del Personal</h1>
+            <p class="description">Sistema completo para gestionar personal, tipos de faltas, criticidad y registrar incidencias</p>
+        </header>
+        
+        <div class="dashboard">
+            <div class="management-panel">
+                <div class="panel">
+                    <h2>Gestión de Personal</h2>
+                    <div class="form-group">
+                        <label for="nuevo-personal">Agregar Nuevo Personal:</label>
+                        <input type="text" id="nuevo-personal" placeholder="Nombre completo">
+                    </div>
+                    <button id="agregar-personal-btn">Agregar Personal</button>
+                    
+                    <h3>Lista de Personal</h3>
+                    <div class="item-list" id="lista-personal"><div class="list-item"><span>BOULANGGER RICHARD RAY JUNIOR</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>GARCIA PUCURIMAY EFRAIN ELIAB</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>RUIZ MAGDE JACKSON</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>VASQUEZ CABRERA MARCO ANTONIO</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>ARIAS GARCIA GUSTAVO ANTONIO</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>ESPINOZA ROJAS OSCAR</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>DIAZ CHINCHAY KLISMANN SAUD</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>VILELA MEJIA ITALO JOSE</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>DIAZ FLORINDEZ GIAN ARTURO</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>GONZALES MENDOZA JHERDIN JITHLER</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>CHERRES MAURICIO ROGGER</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>BRAVO QUIROZ HONY</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>RAMIREZ RAMIREZ JHONNY</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>GUTIERREZ BOBADILLA JANCARLOS</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>MARIN MARCANO ALPHENIX RAMON</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>MILLAN FABIAN YIMI DENIS</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>BRITO MORILLO JUAN CARLOS</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>GONZALES MORALES NICK PATRICK</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>TRILLO CABRERA SEBASTIAN</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>MOZOMBITE RENGIFO DIEGO</span><div><button class="btn-delete">Eliminar</button></div></div></div>
+                </div>
+                
+                <div class="panel">
+                    <h2>Gestión de Tipos de Faltas</h2>
+                    <div class="form-group">
+                        <label for="nueva-falta">Agregar Nuevo Tipo de Falta:</label>
+                        <input type="text" id="nueva-falta" placeholder="Tipo de falta">
+                    </div>
+                    
+                    <button id="agregar-falta-btn">Agregar Tipo de Falta</button>
+                    
+                    <h3>Tipos de Faltas</h3>
+                    <div class="item-list" id="lista-faltas"><div class="list-item"><span>EPPS</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>PROCEDIMIENTOS</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>TARJETA DE INGRESO A PLANTA</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>BALIZAMIENTO</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>MAL ANALISIS DE ATS</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>CINTA DEL MES</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>NO USAR RESPIRADOR</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>ATS</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>HOJA DE SEGURIDAD</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>PERMISO DE TRABAJO</span><div><button class="btn-delete">Eliminar</button></div></div><div class="list-item"><span>CHECK-LIST</span><div><button class="btn-delete">Eliminar</button></div></div></div>
+                </div>
+            </div>
+            
+            <div class="stats-section">
+                <h2>Registro de Faltas</h2>
+                
+                <div class="filter-section">
+                    <label>Filtrar por:</label>
+                    <select id="filtro-criticidad">
+                        <option value="todos">Todas las criticidades</option>
+                        <option value="leve">Leve</option>
+                        <option value="moderado">Moderado</option>
+                        <option value="grave">Grave</option>
+                    </select>
+                    <button id="aplicar-filtro" class="btn-filter">Aplicar Filtro</button>
+                    <button id="limpiar-filtro" class="btn-filter">Limpiar Filtro</button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="personal">Personal:</label>
+                    <select id="personal"><option value="">Seleccionar personal</option><option value="BOULANGGER RICHARD RAY JUNIOR">BOULANGGER RICHARD RAY JUNIOR</option><option value="GARCIA PUCURIMAY EFRAIN ELIAB">GARCIA PUCURIMAY EFRAIN ELIAB</option><option value="RUIZ MAGDE JACKSON">RUIZ MAGDE JACKSON</option><option value="VASQUEZ CABRERA MARCO ANTONIO">VASQUEZ CABRERA MARCO ANTONIO</option><option value="ARIAS GARCIA GUSTAVO ANTONIO">ARIAS GARCIA GUSTAVO ANTONIO</option><option value="ESPINOZA ROJAS OSCAR">ESPINOZA ROJAS OSCAR</option><option value="DIAZ CHINCHAY KLISMANN SAUD">DIAZ CHINCHAY KLISMANN SAUD</option><option value="VILELA MEJIA ITALO JOSE">VILELA MEJIA ITALO JOSE</option><option value="DIAZ FLORINDEZ GIAN ARTURO">DIAZ FLORINDEZ GIAN ARTURO</option><option value="GONZALES MENDOZA JHERDIN JITHLER">GONZALES MENDOZA JHERDIN JITHLER</option><option value="CHERRES MAURICIO ROGGER">CHERRES MAURICIO ROGGER</option><option value="BRAVO QUIROZ HONY">BRAVO QUIROZ HONY</option><option value="RAMIREZ RAMIREZ JHONNY">RAMIREZ RAMIREZ JHONNY</option><option value="GUTIERREZ BOBADILLA JANCARLOS">GUTIERREZ BOBADILLA JANCARLOS</option><option value="MARIN MARCANO ALPHENIX RAMON">MARIN MARCANO ALPHENIX RAMON</option><option value="MILLAN FABIAN YIMI DENIS">MILLAN FABIAN YIMI DENIS</option><option value="BRITO MORILLO JUAN CARLOS">BRITO MORILLO JUAN CARLOS</option><option value="GONZALES MORALES NICK PATRICK">GONZALES MORALES NICK PATRICK</option><option value="TRILLO CABRERA SEBASTIAN">TRILLO CABRERA SEBASTIAN</option><option value="MOZOMBITE RENGIFO DIEGO">MOZOMBITE RENGIFO DIEGO</option></select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha">
+                </div>
+                
+                <div class="form-group">
+                    <label for="falta">Tipo de Falta:</label>
+                    <select id="falta"><option value="">Seleccionar tipo de falta</option><option value="EPPS">EPPS</option><option value="PROCEDIMIENTOS">PROCEDIMIENTOS</option><option value="TARJETA DE INGRESO A PLANTA">TARJETA DE INGRESO A PLANTA</option><option value="BALIZAMIENTO">BALIZAMIENTO</option><option value="MAL ANALISIS DE ATS">MAL ANALISIS DE ATS</option><option value="CINTA DEL MES">CINTA DEL MES</option><option value="NO USAR RESPIRADOR">NO USAR RESPIRADOR</option><option value="ATS">ATS</option><option value="HOJA DE SEGURIDAD">HOJA DE SEGURIDAD</option><option value="PERMISO DE TRABAJO">PERMISO DE TRABAJO</option><option value="CHECK-LIST">CHECK-LIST</option></select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="criticidad">Nivel de Criticidad:</label>
+                    <select id="criticidad">
+                        <option value="leve">Leve</option>
+                        <option value="moderado">Moderado</option>
+                        <option value="grave">Grave</option>
+                    </select>
+                </div>
+                
+                <button id="registrar-btn">Registrar Falta</button>
+                
+                <div class="export-buttons">
+                    <button id="exportar-excel" class="btn-export">Exportar a Excel</button>
+                    <button id="exportar-pdf" class="btn-export">Exportar a PDF</button>
+                </div>
+                
+                <table id="tabla-faltas">
+                    <thead>
+                        <tr>
+                            <th>Personal</th>
+                            <th>Fecha</th>
+                            <th>Tipo de Falta</th>
+                            <th>Criticidad</th>
+                            <th class="actions">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody><tr><td colspan="5" class="no-data">No hay faltas registradas. Use el formulario para agregar nuevas.</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="summary">
+            <h2>Resumen Estadístico</h2>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3 id="total-faltas">0</h3>
+                    <p>Total de Faltas Registradas</p>
+                </div>
+                <div class="summary-card">
+                    <h3 id="total-personal">0</h3>
+                    <p>Personal con Faltas</p>
+                </div>
+                <div class="summary-card">
+                    <h3 id="falta-comun">-</h3>
+                    <p>Falta más Común</p>
+                </div>
+                <div class="summary-card">
+                    <h3 id="criticidad-comun">-</h3>
+                    <p>Criticidad más Común</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-container">
+            <div class="chart-panel">
+                <h2>Faltas por Tipo</h2>
+                <div class="chart-container">
+                    <canvas id="chart-tipos-faltas" width="798" height="450" style="display: block; box-sizing: border-box; height: 300px; width: 532px;"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-panel">
+                <h2>Faltas por Criticidad</h2>
+                <div class="chart-container">
+                    <canvas id="chart-criticidad-faltas" width="798" height="450" style="display: block; box-sizing: border-box; height: 300px; width: 532px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del DOM
+            const registrarBtn = document.getElementById('registrar-btn');
+            const agregarPersonalBtn = document.getElementById('agregar-personal-btn');
+            const agregarFaltaBtn = document.getElementById('agregar-falta-btn');
+            const exportarExcelBtn = document.getElementById('exportar-excel');
+            const exportarPdfBtn = document.getElementById('exportar-pdf');
+            const aplicarFiltroBtn = document.getElementById('aplicar-filtro');
+            const limpiarFiltroBtn = document.getElementById('limpiar-filtro');
+            const tablaFaltas = document.getElementById('tabla-faltas').getElementsByTagName('tbody')[0];
+            const listaPersonal = document.getElementById('lista-personal');
+            const listaFaltas = document.getElementById('lista-faltas');
+            const personalSelect = document.getElementById('personal');
+            const faltaSelect = document.getElementById('falta');
+            const criticidadSelect = document.getElementById('criticidad');
+            const filtroCriticidad = document.getElementById('filtro-criticidad');
+            
+            // Variables para gráficos
+            let chartTiposFaltas = null;
+            let chartCriticidadFaltas = null;
+            
+            // Cargar datos existentes del localStorage
+            let personal = JSON.parse(localStorage.getItem('personal')) || [
+                "BOULANGGER RICHARD RAY JUNIOR",
+                "GARCIA PUCURIMAY EFRAIN ELIAB",
+                "RUIZ MAGDE JACKSON",
+                "VASQUEZ CABRERA MARCO ANTONIO",
+                "ARIAS GARCIA GUSTAVO ANTONIO",
+                "ESPINOZA ROJAS OSCAR",
+                "DIAZ CHINCHAY KLISMANN SAUD",
+                "VILELA MEJIA ITALO JOSE",
+                "DIAZ FLORINDEZ GIAN ARTURO",
+                "GONZALES MENDOZA JHERDIN JITHLER",
+                "CHERRES MAURICIO ROGGER",
+                "BRAVO QUIROZ HONY",
+                "RAMIREZ RAMIREZ JHONNY",
+                "GUTIERREZ BOBADILLA JANCARLOS",
+                "MARIN MARCANO ALPHENIX RAMON",
+                "MILLAN FABIAN YIMI DENIS",
+                "BRITO MORILLO JUAN CARLOS",
+                "GONZALES MORALES NICK PATRICK",
+                "TRILLO CABRERA SEBASTIAN",
+                "MOZOMBITE RENGIFO DIEGO"
+            ];
+            
+            let tiposFaltas = JSON.parse(localStorage.getItem('tiposFaltas')) || [
+                "EPPS",
+                "PROCEDIMIENTOS",
+                "TARJETA DE INGRESO A PLANTA",
+                "BALIZAMIENTO",
+                "MAL ANALISIS DE ATS",
+                "CINTA DEL MES",
+                "NO USAR RESPIRADOR",
+                "ATS",
+                "HOJA DE SEGURIDAD",
+                "PERMISO DE TRABAJO",
+                "CHECK-LIST"
+            ];
+            
+            let faltas = JSON.parse(localStorage.getItem('faltas')) || [];
+            
+            // Variable para filtro actual
+            let filtroActual = 'todos';
+            
+            // Función para guardar datos en localStorage
+            function guardarDatos() {
+                localStorage.setItem('personal', JSON.stringify(personal));
+                localStorage.setItem('tiposFaltas', JSON.stringify(tiposFaltas));
+                localStorage.setItem('faltas', JSON.stringify(faltas));
+            }
+            
+            // Función para obtener el nombre de la criticidad
+            function obtenerNombreCriticidad(criticidad) {
+                switch(criticidad) {
+                    case 'leve': return 'Leve';
+                    case 'moderado': return 'Moderado';
+                    case 'grave': return 'Grave';
+                    default: return criticidad;
+                }
+            }
+            
+            // Función para obtener la clase CSS de la criticidad
+            function obtenerClaseCriticidad(criticidad) {
+                switch(criticidad) {
+                    case 'leve': return 'badge-leve';
+                    case 'moderado': return 'badge-moderado';
+                    case 'grave': return 'badge-grave';
+                    default: return '';
+                }
+            }
+            
+            // Función para actualizar los selectores
+            function actualizarSelectores() {
+                // Limpiar selectores
+                personalSelect.innerHTML = '<option value="">Seleccionar personal</option>';
+                faltaSelect.innerHTML = '<option value="">Seleccionar tipo de falta</option>';
+                
+                // Llenar selector de personal
+                personal.forEach(p => {
+                    const option = document.createElement('option');
+                    option.value = p;
+                    option.textContent = p;
+                    personalSelect.appendChild(option);
+                });
+                
+                // Llenar selector de tipos de falta
+                tiposFaltas.forEach(f => {
+                    const option = document.createElement('option');
+                    option.value = f;
+                    option.textContent = f;
+                    faltaSelect.appendChild(option);
+                });
+            }
+            
+            // Función para actualizar la lista de personal
+            function actualizarListaPersonal() {
+                listaPersonal.innerHTML = '';
+                
+                if (personal.length === 0) {
+                    listaPersonal.innerHTML = '<div class="no-data">No hay personal registrado</div>';
+                    return;
+                }
+                
+                personal.forEach((p, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    
+                    const nombre = document.createElement('span');
+                    nombre.textContent = p;
+                    
+                    const acciones = document.createElement('div');
+                    
+                    const btnEliminar = document.createElement('button');
+                    btnEliminar.textContent = 'Eliminar';
+                    btnEliminar.className = 'btn-delete';
+                    btnEliminar.onclick = function() {
+                        if (confirm(`¿Está seguro de que desea eliminar a "${p}"?`)) {
+                            personal.splice(index, 1);
+                            guardarDatos();
+                            actualizarListaPersonal();
+                            actualizarSelectores();
+                            actualizarGraficos();
+                        }
+                    };
+                    
+                    acciones.appendChild(btnEliminar);
+                    item.appendChild(nombre);
+                    item.appendChild(acciones);
+                    listaPersonal.appendChild(item);
+                });
+            }
+            
+            // Función para actualizar la lista de tipos de faltas
+            function actualizarListaFaltas() {
+                listaFaltas.innerHTML = '';
+                
+                if (tiposFaltas.length === 0) {
+                    listaFaltas.innerHTML = '<div class="no-data">No hay tipos de falta registrados</div>';
+                    return;
+                }
+                
+                tiposFaltas.forEach((f, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'list-item';
+                    
+                    const nombre = document.createElement('span');
+                    nombre.textContent = f;
+                    
+                    const acciones = document.createElement('div');
+                    
+                    const btnEliminar = document.createElement('button');
+                    btnEliminar.textContent = 'Eliminar';
+                    btnEliminar.className = 'btn-delete';
+                    btnEliminar.onclick = function() {
+                        if (confirm(`¿Está seguro de que desea eliminar el tipo de falta "${f}"?`)) {
+                            tiposFaltas.splice(index, 1);
+                            guardarDatos();
+                            actualizarListaFaltas();
+                            actualizarSelectores();
+                            actualizarGraficos();
+                        }
+                    };
+                    
+                    acciones.appendChild(btnEliminar);
+                    item.appendChild(nombre);
+                    item.appendChild(acciones);
+                    listaFaltas.appendChild(item);
+                });
+            }
+            
+            // Función para aplicar filtros a las faltas
+            function aplicarFiltros() {
+                if (filtroActual === 'todos') {
+                    return [...faltas];
+                } else {
+                    return faltas.filter(falta => falta.criticidad === filtroActual);
+                }
+            }
+            
+            // Función para actualizar la tabla de faltas
+            function actualizarTabla() {
+                tablaFaltas.innerHTML = '';
+                
+                const faltasFiltradas = aplicarFiltros();
+                
+                if (faltasFiltradas.length === 0) {
+                    const row = tablaFaltas.insertRow();
+                    const cell = row.insertCell(0);
+                    cell.colSpan = 5;
+                    cell.textContent = 'No hay faltas registradas. Use el formulario para agregar nuevas.';
+                    cell.className = 'no-data';
+                } else {
+                    // Ordenar por fecha (más reciente primero)
+                    faltasFiltradas.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                    
+                    faltasFiltradas.forEach((falta, index) => {
+                        const row = tablaFaltas.insertRow();
+                        
+                        // Aplicar clase de criticidad a la fila
+                        row.classList.add(`criticidad-${falta.criticidad}`);
+                        
+                        const cellPersonal = row.insertCell(0);
+                        const cellFecha = row.insertCell(1);
+                        const cellTipo = row.insertCell(2);
+                        const cellCriticidad = row.insertCell(3);
+                        const cellAcciones = row.insertCell(4);
+                        cellAcciones.className = 'actions';
+                        
+                        cellPersonal.textContent = falta.personal;
+                        
+                        // Formatear fecha para mostrarla
+                        const fechaObj = new Date(falta.fecha);
+                        cellFecha.textContent = fechaObj.toLocaleDateString('es-ES');
+                        
+                        cellTipo.textContent = falta.tipo;
+                        
+                        // Mostrar criticidad con badge
+                        cellCriticidad.innerHTML = `<span class="badge ${obtenerClaseCriticidad(falta.criticidad)}">${obtenerNombreCriticidad(falta.criticidad)}</span>`;
+                        
+                        // Botones de acción
+                        const editBtn = document.createElement('button');
+                        editBtn.textContent = 'Editar';
+                        editBtn.className = 'btn-edit';
+                        editBtn.onclick = function() {
+                            // Llenar el formulario con los datos existentes
+                            personalSelect.value = falta.personal;
+                            document.getElementById('fecha').value = falta.fecha;
+                            faltaSelect.value = falta.tipo;
+                            criticidadSelect.value = falta.criticidad;
+                            
+                            // Eliminar este registro
+                            const indexOriginal = faltas.findIndex(f => 
+                                f.personal === falta.personal && 
+                                f.fecha === falta.fecha && 
+                                f.tipo === falta.tipo
+                            );
+                            
+                            if (indexOriginal !== -1) {
+                                faltas.splice(indexOriginal, 1);
+                                guardarDatos();
+                                actualizarTabla();
+                                actualizarResumen();
+                                actualizarGraficos();
+                            }
+                        };
+                        
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.textContent = 'Eliminar';
+                        deleteBtn.className = 'btn-delete';
+                        deleteBtn.onclick = function() {
+                            if (confirm('¿Está seguro de que desea eliminar este registro?')) {
+                                const indexOriginal = faltas.findIndex(f => 
+                                    f.personal === falta.personal && 
+                                    f.fecha === falta.fecha && 
+                                    f.tipo === falta.tipo
+                                );
+                                
+                                if (indexOriginal !== -1) {
+                                    faltas.splice(indexOriginal, 1);
+                                    guardarDatos();
+                                    actualizarTabla();
+                                    actualizarResumen();
+                                    actualizarGraficos();
+                                }
+                            }
+                        };
+                        
+                        cellAcciones.appendChild(editBtn);
+                        cellAcciones.appendChild(deleteBtn);
+                    });
+                }
+                
+                actualizarResumen();
+                actualizarGraficos();
+            }
+            
+            // Función para actualizar el resumen
+            function actualizarResumen() {
+                document.getElementById('total-faltas').textContent = faltas.length;
+                
+                // Calcular personal único con faltas
+                const personalUnico = new Set(faltas.map(falta => falta.personal));
+                document.getElementById('total-personal').textContent = personalUnico.size;
+                
+                // Calcular falta más común
+                if (faltas.length > 0) {
+                    const conteoFaltas = {};
+                    faltas.forEach(falta => {
+                        conteoFaltas[falta.tipo] = (conteoFaltas[falta.tipo] || 0) + 1;
+                    });
+                    
+                    const faltaMasComun = Object.keys(conteoFaltas).reduce((a, b) => 
+                        conteoFaltas[a] > conteoFaltas[b] ? a : b);
+                    document.getElementById('falta-comun').textContent = faltaMasComun;
+                    
+                    // Calcular criticidad más común
+                    const conteoCriticidad = { leve: 0, moderado: 0, grave: 0 };
+                    faltas.forEach(falta => {
+                        conteoCriticidad[falta.criticidad]++;
+                    });
+                    
+                    const criticidadMasComun = Object.keys(conteoCriticidad).reduce((a, b) => 
+                        conteoCriticidad[a] > conteoCriticidad[b] ? a : b);
+                    document.getElementById('criticidad-comun').textContent = obtenerNombreCriticidad(criticidadMasComun);
+                } else {
+                    document.getElementById('falta-comun').textContent = '-';
+                    document.getElementById('criticidad-comun').textContent = '-';
+                }
+            }
+            
+            // Función para actualizar los gráficos
+            function actualizarGraficos() {
+                // Datos para el gráfico de tipos de faltas
+                const conteoTipos = {};
+                tiposFaltas.forEach(tipo => {
+                    conteoTipos[tipo] = 0;
+                });
+                
+                faltas.forEach(falta => {
+                    if (conteoTipos[falta.tipo] !== undefined) {
+                        conteoTipos[falta.tipo]++;
+                    }
+                });
+                
+                // Datos para el gráfico de criticidad
+                const conteoCriticidad = { leve: 0, moderado: 0, grave: 0 };
+                faltas.forEach(falta => {
+                    conteoCriticidad[falta.criticidad]++;
+                });
+                
+                // Destruir gráficos existentes
+                if (chartTiposFaltas) {
+                    chartTiposFaltas.destroy();
+                }
+                
+                if (chartCriticidadFaltas) {
+                    chartCriticidadFaltas.destroy();
+                }
+                
+                // Crear gráfico de tipos de faltas
+                const ctxTipos = document.getElementById('chart-tipos-faltas').getContext('2d');
+                chartTiposFaltas = new Chart(ctxTipos, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(conteoTipos),
+                        datasets: [{
+                            label: 'Número de Faltas',
+                            data: Object.values(conteoTipos),
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(75, 192, 192, 0.7)',
+                                'rgba(153, 102, 255, 0.7)',
+                                'rgba(255, 159, 64, 0.7)',
+                                'rgba(199, 199, 199, 0.7)',
+                                'rgba(83, 102, 255, 0.7)',
+                                'rgba(40, 159, 64, 0.7)',
+                                'rgba(210, 99, 132, 0.7)',
+                                'rgba(130, 162, 235, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(199, 199, 199, 1)',
+                                'rgba(83, 102, 255, 1)',
+                                'rgba(40, 159, 64, 1)',
+                                'rgba(210, 99, 132, 1)',
+                                'rgba(130, 162, 235, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Distribución de Faltas por Tipo'
+                            }
+                        }
+                    }
+                });
+                
+                // Crear gráfico de criticidad de faltas
+                const ctxCriticidad = document.getElementById('chart-criticidad-faltas').getContext('2d');
+                chartCriticidadFaltas = new Chart(ctxCriticidad, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Leve', 'Moderado', 'Grave'],
+                        datasets: [{
+                            label: 'Número de Faltas',
+                            data: [conteoCriticidad.leve, conteoCriticidad.moderado, conteoCriticidad.grave],
+                            backgroundColor: [
+                                'rgba(46, 204, 113, 0.7)',
+                                'rgba(241, 196, 15, 0.7)',
+                                'rgba(231, 76, 60, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(46, 204, 113, 1)',
+                                'rgba(241, 196, 15, 1)',
+                                'rgba(231, 76, 60, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Distribución de Faltas por Criticidad'
+                            },
+                            legend: {
+                                position: 'right'
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Función para exportar a Excel
+            function exportarAExcel() {
+                // Preparar datos para exportar
+                const datosExportar = faltas.map(falta => {
+                    return {
+                        'Personal': falta.personal,
+                        'Fecha': new Date(falta.fecha).toLocaleDateString('es-ES'),
+                        'Tipo de Falta': falta.tipo,
+                        'Criticidad': obtenerNombreCriticidad(falta.criticidad)
+                    };
+                });
+                
+                // Crear libro de Excel
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.json_to_sheet(datosExportar);
+                
+                // Añadir hoja al libro
+                XLSX.utils.book_append_sheet(wb, ws, 'Registro de Faltas');
+                
+                // Exportar a Excel
+                XLSX.writeFile(wb, 'registro_faltas.xlsx');
+            }
+            
+            // Función para exportar a PDF
+            function exportarAPDF() {
+                // Crear instancia de jsPDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Título del documento
+                doc.setFontSize(20);
+                doc.text('Reporte de Faltas del Personal', 14, 22);
+                
+                // Fecha de generación
+                doc.setFontSize(12);
+                doc.text(`Generado el: ${new Date().toLocaleDateString('es-ES')}`, 14, 30);
+                
+                // Resumen estadístico
+                doc.setFontSize(14);
+                doc.text('Resumen Estadístico', 14, 45);
+                
+                doc.setFontSize(12);
+                doc.text(`Total de faltas registradas: ${faltas.length}`, 14, 55);
+                
+                const personalUnico = new Set(faltas.map(falta => falta.personal));
+                doc.text(`Personal con faltas: ${personalUnico.size}`, 14, 65);
+                
+                if (faltas.length > 0) {
+                    const conteoFaltas = {};
+                    faltas.forEach(falta => {
+                        conteoFaltas[falta.tipo] = (conteoFaltas[falta.tipo] || 0) + 1;
+                    });
+                    
+                    const faltaMasComun = Object.keys(conteoFaltas).reduce((a, b) => 
+                        conteoFaltas[a] > conteoFaltas[b] ? a : b);
+                    doc.text(`Falta más común: ${faltaMasComun}`, 14, 75);
+                    
+                    // Calcular criticidad más común
+                    const conteoCriticidad = { leve: 0, moderado: 0, grave: 0 };
+                    faltas.forEach(falta => {
+                        conteoCriticidad[falta.criticidad]++;
+                    });
+                    
+                    const criticidadMasComun = Object.keys(conteoCriticidad).reduce((a, b) => 
+                        conteoCriticidad[a] > conteoCriticidad[b] ? a : b);
+                    doc.text(`Criticidad más común: ${obtenerNombreCriticidad(criticidadMasComun)}`, 14, 85);
+                }
+                
+                // Tabla de faltas
+                doc.autoTable({
+                    startY: 95,
+                    head: [['Personal', 'Fecha', 'Tipo de Falta', 'Criticidad']],
+                    body: faltas.map(falta => {
+                        return [
+                            falta.personal, 
+                            new Date(falta.fecha).toLocaleDateString('es-ES'), 
+                            falta.tipo,
+                            obtenerNombreCriticidad(falta.criticidad)
+                        ];
+                    })
+                });
+                
+                // Guardar PDF
+                doc.save('reporte_faltas.pdf');
+            }
+            
+            // Event listener para el botón de registrar falta
+            registrarBtn.addEventListener('click', function() {
+                const personal = personalSelect.value;
+                const fecha = document.getElementById('fecha').value;
+                const tipo = faltaSelect.value;
+                const criticidad = criticidadSelect.value;
+                
+                if (!personal || !fecha || !tipo || !criticidad) {
+                    alert('Por favor, complete todos los campos.');
+                    return;
+                }
+                
+                // Agregar la nueva falta
+                faltas.push({
+                    personal: personal,
+                    fecha: fecha,
+                    tipo: tipo,
+                    criticidad: criticidad
+                });
+                
+                // Guardar en localStorage
+                guardarDatos();
+                
+                // Actualizar la tabla
+                actualizarTabla();
+                
+                // Limpiar el formulario
+                personalSelect.value = '';
+                document.getElementById('fecha').value = '';
+                faltaSelect.value = '';
+                criticidadSelect.value = 'leve';
+                
+                alert('Falta registrada correctamente.');
+            });
+            
+            // Event listener para agregar personal
+            agregarPersonalBtn.addEventListener('click', function() {
+                const nuevoPersonal = document.getElementById('nuevo-personal').value.trim();
+                
+                if (!nuevoPersonal) {
+                    alert('Por favor, ingrese un nombre.');
+                    return;
+                }
+                
+                if (personal.includes(nuevoPersonal)) {
+                    alert('Este personal ya está registrado.');
+                    return;
+                }
+                
+                personal.push(nuevoPersonal);
+                guardarDatos();
+                actualizarListaPersonal();
+                actualizarSelectores();
+                
+                document.getElementById('nuevo-personal').value = '';
+                alert('Personal agregado correctamente.');
+            });
+            
+            // Event listener para agregar tipo de falta
+            agregarFaltaBtn.addEventListener('click', function() {
+                const nuevaFalta = document.getElementById('nueva-falta').value.trim();
+                
+                if (!nuevaFalta) {
+                    alert('Por favor, ingrese un tipo de falta.');
+                    return;
+                }
+                
+                if (tiposFaltas.includes(nuevaFalta)) {
+                    alert('Este tipo de falta ya está registrado.');
+                    return;
+                }
+                
+                tiposFaltas.push(nuevaFalta);
+                guardarDatos();
+                actualizarListaFaltas();
+                actualizarSelectores();
+                
+                document.getElementById('nueva-falta').value = '';
+                alert('Tipo de falta agregado correctamente.');
+            });
+            
+            // Event listener para exportar a Excel
+            exportarExcelBtn.addEventListener('click', exportarAExcel);
+            
+            // Event listener para exportar a PDF
+            exportarPdfBtn.addEventListener('click', exportarAPDF);
+            
+            // Event listener para aplicar filtro
+            aplicarFiltroBtn.addEventListener('click', function() {
+                filtroActual = filtroCriticidad.value;
+                actualizarTabla();
+            });
+            
+            // Event listener para limpiar filtro
+            limpiarFiltroBtn.addEventListener('click', function() {
+                filtroActual = 'todos';
+                filtroCriticidad.value = 'todos';
+                actualizarTabla();
+            });
+            
+            // Inicializar la aplicación
+            guardarDatos();
+            actualizarSelectores();
+            actualizarListaPersonal();
+            actualizarListaFaltas();
+            actualizarTabla();
+        });
+    </script>
+
+</body></html>
